@@ -1,0 +1,15 @@
+type AdminChanged @entity {
+  id: ID!
+  previousAdmin: Bytes! # address
+  newAdmin: Bytes! # address
+}
+
+type BeaconUpgraded @entity {
+  id: ID!
+  beacon: Bytes! # address
+}
+
+type Upgraded @entity {
+  id: ID!
+  implementation: Bytes! # address
+}

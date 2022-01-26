@@ -4,14 +4,18 @@ Current subgraph here: https://thegraph.com/hosted-service/subgraph/schmidsi/sou
 
 ## Spec
 
-Sound.xyz deploys for every artist its own ERC721 (or ERC1155?) contract from a factory contract. The artist contract is a [BeaconProxy](https://docs.openzeppelin.com/contracts/4.x/api/proxy).
+Sound.xyz deploys for every artist its own ERC721 (or ERC1155?) contract from a factory contract. The artist contract is a [BeaconProxy](https://docs.openzeppelin.com/contracts/4.x/api/proxy). There are multiple drops per artist.
 
 This subgraph should track following events:
 
 - Creation of new artist contract (use data source templates)
-- New drop on artist contract
-- Sales on artist contract
-- Transfers of NFTs
+- New drop on artist contract: Will be announced
+- Sale events on artist contract, during drop
+- Transfer events of NFTs
+- Statistics (Prio 2):
+  - Total NFTs sold
+  - Total contracts deployed
+  - Total drops
 
 ## Reverse engineering notes
 

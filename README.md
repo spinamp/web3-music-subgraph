@@ -1,5 +1,7 @@
 # Sound.xyz subgraph
 
+Current subgraph here: https://thegraph.com/hosted-service/subgraph/schmidsi/sound-subgraph?query=Example%20query
+
 ## Spec
 
 Sound.xyz deploys for every artist its own ERC721 (or ERC1155?) contract from a factory contract. The artist contract is a [BeaconProxy](https://docs.openzeppelin.com/contracts/4.x/api/proxy).

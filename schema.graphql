@@ -1,49 +1,102 @@
-type AdminChanged @entity {
+type Artist @entity {
   id: ID!
-  previousAdmin: Bytes! # address
-  newAdmin: Bytes! # address
+  uri: String!
+  artistId: BigInt!
+  name: String!
+  symbol: String!
+  totalSupply: BigInt!
+  owner: Account!
+  creator: Account!
+  editions: [Edition!]! @derivedFrom(field: "artist")
+  tokens: [Token!]! @derivedFrom(field: "artist")
+  sales: [Sale!]! @derivedFrom(field: "artist")
+  transfers: [Transfer!]! @derivedFrom(field: "artist")
 }
 
-type BeaconUpgraded @entity {
+type Edition @entity {
   id: ID!
-  beacon: Bytes! # address
-}
-
-type Upgraded @entity {
-  id: ID!
-  implementation: Bytes! # address
+  uri: String!
+  artist: Artist!
+  editionId: BigInt!
+  fundingRecipient: Bytes!
+  price: BigInt!
+  numSold: BigInt!
+  quantity: BigInt!
+  royaltyBPS: BigInt!
+  startTime: BigInt!
+  endTime: BigInt!
+  tokens: [Token!]! @derivedFrom(field: "edition")
+  sales: [Sale!]! @derivedFrom(field: "edition")
+  transfers: [Transfer!]! @derivedFrom(field: "edition")
 }
 
 type Token @entity {
   id: ID!
-  owner: Owner
-  uri: String
+  uri: String!
+  artist: Artist!
+  edition: Edition!
+  tokenId: BigInt!
+  owner: Account!
+  creator: Account!
+  sales: [Sale!]! @derivedFrom(field: "token")
   transfers: [Transfer!]! @derivedFrom(field: "token")
-  contract: Contract
 }
 
-type Owner @entity {
+interface Event {
   id: ID!
-  ownedTokens: [Token!]! @derivedFrom(field: "owner")
-  balance: BigInt
-}
-
-type Contract @entity {
-  id: ID!
-  name: String
-  symbol: String
-  totalSupply: BigInt
-  mintedTokens: [Token!]! @derivedFrom(field: "contract")
-}
-
-type Transfer @entity {
-  id: ID!
+  artist: Artist!
+  edition: Edition!
   token: Token!
-  # Empty from is minting
-  from: Owner
-  # Empty to is burning
-  to: Owner
+  blockNumber: BigInt!
+  blockHash: Bytes!
+  txHash: Bytes!
   timestamp: BigInt!
-  block: BigInt!
-  transactionHash: String!
+}
+
+type Sale implements Event @entity {
+  id: ID!
+  artist: Artist!
+  edition: Edition!
+  token: Token!
+  blockNumber: BigInt!
+  blockHash: Bytes!
+  txHash: Bytes!
+  timestamp: BigInt!
+  currency: Bytes!
+  amount: BigInt!
+  seller: Account!
+  buyer: Account!
+}
+
+type Transfer implements Event @entity {
+  id: ID!
+  artist: Artist!
+  edition: Edition!
+  token: Token!
+  blockNumber: BigInt!
+  blockHash: Bytes!
+  txHash: Bytes!
+  timestamp: BigInt!
+  from: Account!
+  to: Account!
+}
+
+type Balance @entity {
+  id: ID!
+  artist: Artist!
+  account: Account!
+  amount: BigInt!
+}
+
+type Account @entity {
+  id: ID!
+  ownedArtists: [Artist!]! @derivedFrom(field: "owner")
+  createdArtists: [Artist!]! @derivedFrom(field: "owner")
+  ownedTokens: [Token!]! @derivedFrom(field: "owner")
+  createdTokens: [Token!]! @derivedFrom(field: "creator")
+  balances: [Balance!]! @derivedFrom(field: "account")
+  bought: [Sale!]! @derivedFrom(field: "buyer")
+  sold: [Sale!]! @derivedFrom(field: "seller")
+  sent: [Transfer!]! @derivedFrom(field: "from")
+  received: [Transfer!]! @derivedFrom(field: "to")
 }

@@ -48,7 +48,7 @@ interface Event {
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
-  blockHhash: Bytes!
+  blockHash: Bytes!
   txHash: Bytes!
   timestamp: BigInt!
 }
@@ -59,7 +59,7 @@ type Sale implements Event @entity {
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
-  blockHhash: Bytes!
+  blockHash: Bytes!
   txHash: Bytes!
   timestamp: BigInt!
   currency: Bytes!
@@ -74,7 +74,7 @@ type Transfer implements Event @entity {
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
-  blockHhash: Bytes!
+  blockHash: Bytes!
   txHash: Bytes!
   timestamp: BigInt!
   from: Account!

@@ -78,7 +78,7 @@ export function handleEditionPurchased(event: EditionPurchasedEvent): void {
   sale.amount = edition.price
   sale.currency = ZERO_ADDRESS
   sale.blockNumber = event.block.number
-  sale.blockHhash = event.block.hash
+  sale.blockHash = event.block.hash
   sale.timestamp = event.block.timestamp
   sale.txHash = event.transaction.hash
   sale.save()
@@ -112,7 +112,7 @@ export function handleTransfer(event: TransferEvent): void {
   transfer.from = from.id
   transfer.to = to.id
   transfer.blockNumber = event.block.number
-  transfer.blockHhash = event.block.hash
+  transfer.blockHash = event.block.hash
   transfer.timestamp = event.block.timestamp
   transfer.txHash = event.transaction.hash
   transfer.save()

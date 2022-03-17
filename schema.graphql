@@ -1,4 +1,4 @@
-type Artist @entity {
+type SoundXYZArtist @entity {
   id: ID!
   uri: String!
   artistId: BigInt!
@@ -16,7 +16,7 @@ type Artist @entity {
 type Edition @entity {
   id: ID!
   uri: String!
-  artist: Artist!
+  artist: SoundXYZArtist!
   editionId: BigInt!
   fundingRecipient: Bytes!
   price: BigInt!
@@ -33,7 +33,7 @@ type Edition @entity {
 type Token @entity {
   id: ID!
   uri: String!
-  artist: Artist!
+  artist: SoundXYZArtist!
   edition: Edition!
   tokenId: BigInt!
   owner: Account!
@@ -44,7 +44,7 @@ type Token @entity {
 
 interface Event {
   id: ID!
-  artist: Artist!
+  artist: SoundXYZArtist!
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
@@ -55,7 +55,7 @@ interface Event {
 
 type Sale implements Event @entity {
   id: ID!
-  artist: Artist!
+  artist: SoundXYZArtist!
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
@@ -70,7 +70,7 @@ type Sale implements Event @entity {
 
 type Transfer implements Event @entity {
   id: ID!
-  artist: Artist!
+  artist: SoundXYZArtist!
   edition: Edition!
   token: Token!
   blockNumber: BigInt!
@@ -83,15 +83,15 @@ type Transfer implements Event @entity {
 
 type Balance @entity {
   id: ID!
-  artist: Artist!
+  artist: SoundXYZArtist!
   account: Account!
   amount: BigInt!
 }
 
 type Account @entity {
   id: ID!
-  ownedArtists: [Artist!]! @derivedFrom(field: "owner")
-  createdArtists: [Artist!]! @derivedFrom(field: "owner")
+  ownedArtists: [SoundXYZArtist!]! @derivedFrom(field: "owner")
+  createdArtists: [SoundXYZArtist!]! @derivedFrom(field: "owner")
   ownedTokens: [Token!]! @derivedFrom(field: "owner")
   createdTokens: [Token!]! @derivedFrom(field: "creator")
   balances: [Balance!]! @derivedFrom(field: "account")

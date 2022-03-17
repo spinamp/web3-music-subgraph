@@ -3,11 +3,12 @@
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy-studio": "graph deploy --studio web3-music"
+    "build": "graph codegen && graph build",
+    "deploy-studio": "graph deploy --studio web3-music",
+    "deploy": "graph codegen && graph build && graph deploy --studio web3-music"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.26.0",
-    "@graphprotocol/graph-ts": "0.24.1"
+    "@graphprotocol/graph-cli": "^0.28.0",
+    "@graphprotocol/graph-ts": "^0.26.0"
   }
 }

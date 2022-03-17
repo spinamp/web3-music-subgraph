@@ -1,10 +1,10 @@
-specVersion: 0.0.2
-description: Sound
+specVersion: 0.0.4
+description: Web3 Music
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: ArtistCreator
+    name: SoundXYZArtistCreator
     network: mainnet
     source:
       address: '0x78e3adc0e811e4f93bd9f1f9389b923c9a3355c2'
@@ -12,29 +12,29 @@ dataSources:
       startBlock: 13725566
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Artist
         - Account
       abis:
         - name: ArtistCreator
-          file: ./abis/ArtistCreator.json
+          file: ./abis/soundxyz/ArtistCreator.json
         - name: Artist
-          file: ./abis/Artist.json
+          file: ./abis/soundxyz/Artist.json
       eventHandlers:
         - event: CreatedArtist(uint256,string,string,indexed address)
           handler: handleCreatedArtist
-      file: ./src/ArtistCreator.ts
+      file: ./src/soundxyz/ArtistCreator.ts
 templates:
   - kind: ethereum/contract
-    name: Artist
+    name: SoundXYZArtist
     network: mainnet
     source:
       abi: Artist
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Artist
@@ -46,7 +46,7 @@ templates:
         - Balance
       abis:
         - name: Artist
-          file: ./abis/Artist.json
+          file: ./abis/soundxyz/Artist.json
       eventHandlers:
         - event: EditionCreated(indexed uint256,address,uint256,uint32,uint32,uint32,uint32)
           handler: handleEditionCreated
@@ -56,4 +56,5 @@ templates:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/Artist.ts
+      file: ./src/soundxyz//Artist.ts
+features: ["ipfsOnEthereumContracts"]

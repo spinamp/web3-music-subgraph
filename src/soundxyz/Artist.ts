@@ -1,21 +1,21 @@
 import { Address, BigInt, log, ethereum } from '@graphprotocol/graph-ts'
 
-import { Artist as ArtistContract } from '../generated/ArtistCreator/Artist'
+import { Artist as ArtistContract } from '../../generated/SoundXYZArtistCreator/Artist'
 import {
   Account as AccountEntity,
-  Artist as ArtistEntity,
+  SoundXYZArtist as SoundXYZArtistEntity,
   Balance as BalanceEntity,
   Edition as EditionEntity,
   Token as TokenEntity,
   Sale as SaleEntity,
   Transfer as TransferEntity
-} from '../generated/schema'
+} from '../../generated/schema'
 import {
   EditionCreated as EditionCreatedEvent,
   EditionPurchased as EditionPurchasedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   Transfer as TransferEvent
-} from '../generated/templates/Artist/Artist'
+} from '../../generated/templates/Artist/Artist'
 
 const ZERO_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
@@ -124,12 +124,12 @@ export function loadOrCreateAccount(address: Address): AccountEntity {
   return account === null ? new AccountEntity(id) : account
 }
 
-export function loadOrCreateArtist(address: Address): ArtistEntity {
+export function loadOrCreateArtist(address: Address): SoundXYZArtistEntity {
   let id = buildArtistId(address)
-  let artist = ArtistEntity.load(id)
+  let artist = SoundXYZArtistEntity.load(id)
 
   if (artist === null) {
-    artist = new ArtistEntity(id)
+    artist = new SoundXYZArtistEntity(id)
     artist.uri = ''
     artist.totalSupply = BigInt.zero()
   } else if (artist.uri == '') {

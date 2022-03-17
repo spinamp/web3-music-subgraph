@@ -1,10 +1,10 @@
-import { Artist as ArtistTemplate } from '../generated/templates'
-import { CreatedArtist as CreatedArtistEvent } from '../generated/ArtistCreator/ArtistCreator'
+import { SoundXYZArtist as SoundXYZArtistTemplate } from '../../generated/templates'
+import { CreatedArtist as CreatedArtistEvent } from '../../generated/SoundXYZArtistCreator/ArtistCreator'
 
 import { loadOrCreateAccount, loadOrCreateArtist } from './Artist'
 
 export function handleCreatedArtist(event: CreatedArtistEvent): void {
-  ArtistTemplate.create(event.params.artistAddress)
+  SoundXYZArtistTemplate.create(event.params.artistAddress)
 
   let owner = loadOrCreateAccount(event.transaction.from)
   owner.save()

@@ -87,16 +87,3 @@ type Balance @entity {
   account: Account!
   amount: BigInt!
 }
-
-type Account @entity {
-  id: ID!
-  ownedArtists: [SoundArtist!]! @derivedFrom(field: "owner")
-  createdArtists: [SoundArtist!]! @derivedFrom(field: "owner")
-  ownedTokens: [Token!]! @derivedFrom(field: "owner")
-  createdTokens: [Token!]! @derivedFrom(field: "creator")
-  balances: [Balance!]! @derivedFrom(field: "account")
-  bought: [Sale!]! @derivedFrom(field: "buyer")
-  sold: [Sale!]! @derivedFrom(field: "seller")
-  sent: [Transfer!]! @derivedFrom(field: "from")
-  received: [Transfer!]! @derivedFrom(field: "to")
-}

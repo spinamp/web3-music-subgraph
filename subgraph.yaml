@@ -26,6 +26,27 @@ dataSources:
         - event: CreatedArtist(uint256,string,string,indexed address)
           handler: handleCreatedArtist
       file: ./src/sound/ArtistCreator.ts
+  - kind: ethereum/contract
+    name: NOIZDNFT
+    network: mainnet
+    source:
+      address: '0xf5819e27b9bad9f97c177bf007c1f96f26d91ca6'
+      abi: NOIZDNFT
+      startBlock: 13470560
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NOIZDToken
+        - Account
+      abis:
+        - name: NOIZDNFT
+          file: ./abis/noizd/NOIZDNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/noizd/NOIZDNFT.ts
 templates:
   - kind: ethereum/contract
     name: SoundArtist

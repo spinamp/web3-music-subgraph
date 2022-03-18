@@ -2,7 +2,6 @@ import { Address, BigInt, log, ethereum } from '@graphprotocol/graph-ts'
 
 import { Artist as ArtistContract } from '../../generated/SoundArtistCreator/Artist'
 import {
-  Account as AccountEntity,
   SoundArtist as SoundArtistEntity,
   Balance as BalanceEntity,
   Edition as EditionEntity,
@@ -16,6 +15,11 @@ import {
   OwnershipTransferred as OwnershipTransferredEvent,
   Transfer as TransferEvent
 } from '../../generated/templates/SoundArtist/Artist'
+
+import {
+  buildAccountId,
+  loadOrCreateAccount
+} from '../shared';
 
 const ZERO_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
@@ -116,12 +120,6 @@ export function handleTransfer(event: TransferEvent): void {
   transfer.timestamp = event.block.timestamp
   transfer.txHash = event.transaction.hash
   transfer.save()
-}
-
-export function loadOrCreateAccount(address: Address): AccountEntity {
-  let id = buildAccountId(address)
-  let account = AccountEntity.load(id)
-  return account === null ? new AccountEntity(id) : account
 }
 
 export function loadOrCreateArtist(address: Address): SoundArtistEntity {
@@ -229,10 +227,6 @@ function getEditionIdForToken(artist: Address, tokenId: BigInt): BigInt {
 
 function buildArtistId(artist: Address): string {
   return artist.toHexString()
-}
-
-function buildAccountId(account: Address): string {
-  return account.toHexString()
 }
 
 function buildEditionId(artist: Address, editionId: BigInt): string {

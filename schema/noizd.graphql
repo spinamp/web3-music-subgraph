@@ -1,0 +1,5 @@
+type NOIZDToken @entity {
+  id: ID!
+  uri: String!
+  owner: Account!
+}

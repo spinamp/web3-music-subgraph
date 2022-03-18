@@ -1,7 +1,7 @@
 specVersion: 0.0.4
 description: Web3 Music
 schema:
-  file: ./schema.graphql
+  file: ./generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: SoundArtistCreator

@@ -4,7 +4,7 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: SoundXYZArtistCreator
+    name: SoundArtistCreator
     network: mainnet
     source:
       address: '0x78e3adc0e811e4f93bd9f1f9389b923c9a3355c2'
@@ -19,16 +19,16 @@ dataSources:
         - Account
       abis:
         - name: ArtistCreator
-          file: ./abis/soundxyz/ArtistCreator.json
+          file: ./abis/sound/ArtistCreator.json
         - name: Artist
-          file: ./abis/soundxyz/Artist.json
+          file: ./abis/sound/Artist.json
       eventHandlers:
         - event: CreatedArtist(uint256,string,string,indexed address)
           handler: handleCreatedArtist
-      file: ./src/soundxyz/ArtistCreator.ts
+      file: ./src/sound/ArtistCreator.ts
 templates:
   - kind: ethereum/contract
-    name: SoundXYZArtist
+    name: SoundArtist
     network: mainnet
     source:
       abi: Artist
@@ -46,7 +46,7 @@ templates:
         - Balance
       abis:
         - name: Artist
-          file: ./abis/soundxyz/Artist.json
+          file: ./abis/sound/Artist.json
       eventHandlers:
         - event: EditionCreated(indexed uint256,address,uint256,uint32,uint32,uint32,uint32)
           handler: handleEditionCreated
@@ -56,5 +56,5 @@ templates:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/soundxyz//Artist.ts
+      file: ./src/sound/Artist.ts
 features: ["ipfsOnEthereumContracts"]

@@ -5,6 +5,7 @@
     "codegen": "graph codegen",
     "build": "graph codegen && graph build",
     "deploy-studio": "graph deploy --studio web3-music",
+    "deploy-hosted": "graph deploy --product hosted-service snowfork/web3-music",
     "deploy": "graph codegen && graph build && graph deploy --studio web3-music"
   },
   "dependencies": {

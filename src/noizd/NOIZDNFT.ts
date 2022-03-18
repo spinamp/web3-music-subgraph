@@ -28,7 +28,7 @@ function getTokenUri(tokenId: BigInt): string {
 }
 
 function buildTokenId(tokenId: BigInt): string {
-  return `${NOIZD_CONTRACT_ADDRESS}/${tokenId.toString()}`;
+  return `${NOIZD_CONTRACT_ADDRESS.toHexString()}/${tokenId.toString()}`;
 }
 
 function loadOrCreateToken(tokenId: BigInt): NOIZDTokenEntity {

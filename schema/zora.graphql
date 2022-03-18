@@ -1,0 +1,43 @@
+type ZoraMedia @entity {
+  "The tokenId on the Zora Media Contract"
+  id: ID!
+
+  "The transaction hash the media was created at"
+  transactionHash: String!
+
+  "The current owner of the Media"
+  owner: Account!
+
+  "The creator of the Media"
+  creator: Account!
+
+  "The previous owner of the Zora Media's Market"
+  prevOwner: Account!
+
+  "The approved user of the Media"
+  approved: Account
+
+  "The sha256 hash of the media's content"
+  contentHash: Bytes!
+
+  "The sha256 hash of the media's metadata"
+  metadataHash: Bytes!
+
+  "The uri of the content"
+  contentURI: String!
+
+  "The uri of the metadata"
+  metadataURI: String!
+
+  "The timestamp of the block the Media was minted in"
+  createdAtTimestamp: BigInt!
+
+  "The number of the block the Media was minted in"
+  createdAtBlockNumber: BigInt!
+
+  "The timestamp of the block the Media was burned in"
+  burnedAtTimeStamp: BigInt
+
+  "The number of the block the Media was burned in"
+  burnedAtBlockNumber: BigInt
+}

@@ -4,6 +4,7 @@ import { NOIZDNFT as NOIZDNFTContract } from '../../generated/NOIZDNFT/NOIZDNFT'
 import {
   Transfer as TransferEvent
 } from '../../generated/NOIZDNFT/NOIZDNFT';
+
 import {
   NOIZDToken as NOIZDTokenEntity,
 } from '../../generated/schema'

@@ -10,4 +10,5 @@ type Account @entity {
   sent: [Transfer!]! @derivedFrom(field: "from")
   received: [Transfer!]! @derivedFrom(field: "to")
   ownedNOIZDTokens: [NOIZDToken!]! @derivedFrom(field: "owner")
+  ownedZoraMedias: [ZoraMedia!]! @derivedFrom(field: "owner")
 }

@@ -16,8 +16,6 @@ import {
   Transfer as TransferEvent
 } from '../../generated/templates/SoundArtist/Artist'
 
-import {toChecksumAddress} from '../utils';
-
 import {
   buildAccountId,
   loadOrCreateAccount
@@ -228,19 +226,19 @@ function getEditionIdForToken(artist: Address, tokenId: BigInt): BigInt {
 }
 
 function buildArtistId(artist: Address): string {
-  return toChecksumAddress(artist.toHexString())
+  return artist.toHexString().toLowerCase()
 }
 
 function buildEditionId(artist: Address, editionId: BigInt): string {
-  return toChecksumAddress(artist.toHexString()) + '/' + editionId.toString()
+  return artist.toHexString().toLowerCase() + '/' + editionId.toString()
 }
 
 function buildTokenId(artist: Address, editionId: BigInt, tokenId: BigInt): string {
-  return toChecksumAddress(artist.toHexString()) + '/' + editionId.toString() + '/' + tokenId.toString()
+  return artist.toHexString().toLowerCase() + '/' + editionId.toString() + '/' + tokenId.toString()
 }
 
 function buildBalanceId(artist: Address, owner: Address): string {
-  return toChecksumAddress(artist.toHexString()) + '/' + toChecksumAddress(owner.toHexString())
+  return artist.toHexString().toLowerCase() + '/' + owner.toHexString().toLowerCase()
 }
 
 function buildEventId(event: ethereum.Event): string {

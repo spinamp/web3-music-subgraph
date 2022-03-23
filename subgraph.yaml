@@ -51,7 +51,7 @@ dataSources:
     name: ZoraMedia
     network: mainnet
     source:
-      address: '0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7'
+      address: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7'
       abi: Media
       startBlock: 11565020
     mapping:

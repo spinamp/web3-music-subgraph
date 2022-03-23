@@ -1,5 +1,4 @@
 import { Address } from '@graphprotocol/graph-ts'
-import {toChecksumAddress} from './utils';
 
 import {
   Account as AccountEntity,
@@ -12,5 +11,5 @@ export function loadOrCreateAccount(address: Address): AccountEntity {
 }
 
 export function buildAccountId(account: Address): string {
-  return toChecksumAddress((account.toHexString()));
+  return account.toHexString().toLowerCase();
 }

@@ -7,7 +7,9 @@
     "build": "yarn codegen && graph build",
     "deploy-studio": "yarn build && graph deploy --studio web3-music",
     "deploy-hosted": "yarn build && graph deploy --product hosted-service snowfork/web3-music",
-    "deploy": "yarn build && graph deploy --studio web3-music"
+    "deploy": "yarn build && graph deploy --studio web3-music",
+    "create-local": "graph create web3-music --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy web3-music --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.28.0",

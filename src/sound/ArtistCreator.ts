@@ -1,17 +1,17 @@
-import { SoundArtist as SoundArtistTemplate } from '../../generated/templates';
-import { CreatedArtist as CreatedArtistEvent } from '../../generated/SoundArtistCreator/ArtistCreator';
+import { SoundArtist, ERC721 } from '../../generated/templates';
+import { CreatedArtist } from '../../generated/SoundArtistCreator/ArtistCreator';
 
-import { loadOrCreateAccount } from '../shared';
+import { loadOrCreateAccount } from '../shared/account';
 import { loadOrCreateArtist } from './Artist';
 
-export function handleCreatedArtist(event: CreatedArtistEvent): void {
-  SoundArtistTemplate.create(event.params.artistAddress)
+export function handleCreatedArtist(event: CreatedArtist): void {
+  SoundArtist.create(event.params.artistAddress)
+  ERC721.create(event.params.artistAddress)
 
   let owner = loadOrCreateAccount(event.transaction.from)
   owner.save()
 
   let artist = loadOrCreateArtist(event.params.artistAddress)
-  artist.owner = owner.id
   artist.creator = owner.id
   artist.name = event.params.name
   artist.symbol = event.params.symbol

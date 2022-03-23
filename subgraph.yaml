@@ -4,6 +4,48 @@ schema:
   file: ./generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
+    name: NOIZDERC721
+    network: mainnet
+    source:
+      address: '0xf5819e27b9bad9f97c177bf007c1f96f26d91ca6'
+      abi: ERC721
+      startBlock: 13470560
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+        - Account
+      abis:
+        - name: ERC721
+          file: ./abis/erc721/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleERC721Transfer
+      file: ./src/shared/NFT.ts
+  - kind: ethereum/contract
+    name: ZoraMediaERC721
+    network: mainnet
+    source:
+      address: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7'
+      abi: ERC721
+      startBlock: 11565020
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+        - Account
+      abis:
+        - name: ERC721
+          file: ./abis/erc721/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleERC721Transfer
+      file: ./src/shared/NFT.ts
+  - kind: ethereum/contract
     name: SoundArtistCreator
     network: mainnet
     source:
@@ -15,88 +57,55 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Artist
+        - SoundArtist
         - Account
       abis:
         - name: ArtistCreator
           file: ./abis/sound/ArtistCreator.json
-        - name: Artist
+        - name: SoundArtist
           file: ./abis/sound/Artist.json
       eventHandlers:
         - event: CreatedArtist(uint256,string,string,indexed address)
           handler: handleCreatedArtist
       file: ./src/sound/ArtistCreator.ts
-  - kind: ethereum/contract
-    name: NOIZDNFT
-    network: mainnet
-    source:
-      address: '0xf5819e27b9bad9f97c177bf007c1f96f26d91ca6'
-      abi: NOIZDNFT
-      startBlock: 13470560
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - NOIZDToken
-        - Account
-      abis:
-        - name: NOIZDNFT
-          file: ./abis/noizd/NOIZDNFT.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
-      file: ./src/noizd/NOIZDNFT.ts
-  - kind: ethereum/contract
-    name: ZoraMedia
-    network: mainnet
-    source:
-      address: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7'
-      abi: Media
-      startBlock: 11565020
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - ZoraMedia
-        - Account
-      abis:
-        - name: Media
-          file: ./abis/zora/Media.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
-      file: ./src/zora/Media.ts
 templates:
+  - kind: ethereum/contract
+    name: ERC721
+    network: mainnet
+    source:
+      abi: ERC721
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+        - Account
+      abis:
+        - name: ERC721
+          file: ./abis/erc721/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleERC721Transfer
+      file: ./src/shared/NFT.ts
   - kind: ethereum/contract
     name: SoundArtist
     network: mainnet
     source:
-      abi: Artist
+      abi: SoundArtist
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Artist
-        - Edition
-        - Token
-        - Sale
-        - Transfer
+        - NFT
         - Account
-        - Balance
       abis:
-        - name: Artist
+        - name: SoundArtist
           file: ./abis/sound/Artist.json
       eventHandlers:
         - event: EditionCreated(indexed uint256,address,uint256,uint32,uint32,uint32,uint32)
           handler: handleEditionCreated
         - event: EditionPurchased(indexed uint256,indexed uint256,uint32,indexed address)
           handler: handleEditionPurchased
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
       file: ./src/sound/Artist.ts
-features: ["ipfsOnEthereumContracts"]

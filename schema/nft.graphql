@@ -1,0 +1,6 @@
+type NFT @entity {
+  id: ID!
+  owner: Account!
+  createdAtTimestamp: BigInt!
+  createdAtBlockNumber: BigInt!
+}

@@ -16,7 +16,7 @@ import {
   Transfer as TransferEvent
 } from '../../generated/templates/SoundArtist/Artist'
 
-import web3 from 'web3';
+import {toChecksumAddress} from '../utils';
 
 import {
   buildAccountId,
@@ -228,19 +228,19 @@ function getEditionIdForToken(artist: Address, tokenId: BigInt): BigInt {
 }
 
 function buildArtistId(artist: Address): string {
-  return web3.utils.toChecksumAddress(artist.toHexString())
+  return toChecksumAddress(artist.toHexString())
 }
 
 function buildEditionId(artist: Address, editionId: BigInt): string {
-  return web3.utils.toChecksumAddress(artist.toHexString()) + '/' + editionId.toString()
+  return toChecksumAddress(artist.toHexString()) + '/' + editionId.toString()
 }
 
 function buildTokenId(artist: Address, editionId: BigInt, tokenId: BigInt): string {
-  return web3.utils.toChecksumAddress(artist.toHexString()) + '/' + editionId.toString() + '/' + tokenId.toString()
+  return toChecksumAddress(artist.toHexString()) + '/' + editionId.toString() + '/' + tokenId.toString()
 }
 
 function buildBalanceId(artist: Address, owner: Address): string {
-  return web3.utils.toChecksumAddress(artist.toHexString()) + '/' + web3.utils.toChecksumAddress(owner.toHexString())
+  return toChecksumAddress(artist.toHexString()) + '/' + toChecksumAddress(owner.toHexString())
 }
 
 function buildEventId(event: ethereum.Event): string {

@@ -1,6 +1,6 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { NOIZDNFT as NOIZDNFTContract } from '../../generated/NOIZDNFT/NOIZDNFT';
-import web3 from 'web3';
+import {toChecksumAddress} from '../utils';
 
 import {
   Transfer as TransferEvent
@@ -14,7 +14,7 @@ import {
   loadOrCreateAccount
 } from '../shared';
 
-const NOIZD_CONTRACT_ADDRESS: Address = Address.fromString(web3.utils.toChecksumAddress(('0xF5819E27B9bAD9F97c177Bf007c1F96F26D91CA6')));
+const NOIZD_CONTRACT_ADDRESS: Address = Address.fromString(toChecksumAddress('0xF5819E27B9bAD9F97c177Bf007c1F96F26D91CA6'));
 
 function getTokenUri(tokenId: BigInt): string {
   let noizdContract = NOIZDNFTContract.bind(NOIZD_CONTRACT_ADDRESS);

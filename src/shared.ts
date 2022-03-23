@@ -1,4 +1,5 @@
 import { Address } from '@graphprotocol/graph-ts'
+import web3 from 'web3';
 
 import {
   Account as AccountEntity,
@@ -11,5 +12,5 @@ export function loadOrCreateAccount(address: Address): AccountEntity {
 }
 
 export function buildAccountId(account: Address): string {
-  return account.toHexString()
+  return web3.utils.toChecksumAddress((account.toHexString()));
 }

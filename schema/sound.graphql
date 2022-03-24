@@ -1,16 +1,7 @@
-type SoundArtist @entity {
-  id: ID!
-  artistId: BigInt!
-  name: String!
-  symbol: String!
-  creator: Account!
-  editions: [SoundEdition!]! @derivedFrom(field: "artist")
-  tokens: [SoundToken!]! @derivedFrom(field: "artist")
-}
-
+# Sound has the concept of an edition. Usually a single release/single track.
 type SoundEdition @entity {
   id: ID!
-  artist: SoundArtist!
+  artistProfile: ArtistProfile!
   editionId: BigInt!
   fundingRecipient: Bytes!
   price: BigInt!
@@ -22,12 +13,10 @@ type SoundEdition @entity {
   tokens: [SoundToken!]! @derivedFrom(field: "edition")
 }
 
+# This is a single ERC721 token that has been minted on sound.
 type SoundToken @entity {
   id: ID!
-  uri: String!
-  artist: SoundArtist!
+  artistProfile: ArtistProfile!
   edition: SoundEdition!
-  tokenId: BigInt!
-  owner: Account!
-  creator: Account!
+  nft: NFT!
 }

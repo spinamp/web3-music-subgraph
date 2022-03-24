@@ -38,6 +38,7 @@ dataSources:
       entities:
         - NFT
         - Account
+        - Track
       abis:
         - name: ERC721
           file: ./abis/erc721/ERC721.json
@@ -66,6 +67,28 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleERC721Transfer
       file: ./src/shared/NFT.ts
+  - kind: ethereum/contract
+    name: ZoraMediaMint
+    network: mainnet
+    source:
+      address: '0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7'
+      abi: ERC721
+      startBlock: 11565020
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+        - Account
+        - Track
+      abis:
+        - name: ERC721
+          file: ./abis/erc721/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleMint
+      file: ./src/zora/Zora.ts
   - kind: ethereum/contract
     name: SoundArtistProfileCreator
     network: mainnet
@@ -121,6 +144,7 @@ templates:
       entities:
         - NFT
         - Account
+        - Track
       abis:
         - name: SoundArtistProfile
           file: ./abis/sound/Artist.json

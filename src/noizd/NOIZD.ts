@@ -21,7 +21,8 @@ function createNOIZDTrack(artist: Address, tokenId: BigInt): Track {
 }
 
 export function handleMint(event: Transfer): void {
-  if(event.params.from !== ZERO_ADDDRESS) {
+  const fromAddress = formatAddress(event.params.from.toHexString());
+  if(fromAddress != ZERO_ADDDRESS) {
     return;
   }
   const to = loadOrCreateAccount(event.params.to)

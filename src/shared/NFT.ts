@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts'
 
 import {
-  loadOrCreateAccount, ZERO_ADDDRESS
+  loadOrCreateAccount, formatAddress, ZERO_ADDDRESS
 } from './account';
 
 import {
@@ -27,7 +27,9 @@ export function upsertERC721(
     nft = new NFT(id);
   }
 
-  trackId && (nft.track = trackId);
+  if (trackId !== null){
+    nft.track = trackId;
+  };
   owner && (nft.owner = owner);
   createdAtTimestamp && (nft.createdAtTimestamp = createdAtTimestamp);
   createdAtBlockNumber && (nft.createdAtBlockNumber = createdAtBlockNumber);
@@ -36,7 +38,8 @@ export function upsertERC721(
 }
 
 export function handleERC721Transfer(event: Transfer): void {
-  if(event.params.from === ZERO_ADDDRESS) {
+  const fromAddress = formatAddress(event.params.from.toHexString());
+  if(fromAddress == ZERO_ADDDRESS) {
     return;
   }
 

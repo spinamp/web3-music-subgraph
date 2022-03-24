@@ -18,4 +18,4 @@ export function formatAddress(address: string): string {
   return address.toLowerCase();
 }
 
-export const ZERO_ADDDRESS: Address = Address.fromString('0x0000000000000000000000000000000000000000');
+export const ZERO_ADDDRESS: string = '0x0000000000000000000000000000000000000000';

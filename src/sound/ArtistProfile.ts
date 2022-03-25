@@ -44,7 +44,7 @@ export function handleEditionPurchased(event: EditionPurchasedEvent): void {
     event.address,
     event.params.tokenId,
     trackId,
-    null,
+    buyer.id,
     event.block.timestamp,
     event.block.number
   );

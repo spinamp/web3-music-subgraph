@@ -1,14 +1,27 @@
+# This represents a single ethereum account
 type Account @entity {
   id: ID!
-  ownedArtists: [SoundArtist!]! @derivedFrom(field: "owner")
-  createdArtists: [SoundArtist!]! @derivedFrom(field: "owner")
-  ownedTokens: [Token!]! @derivedFrom(field: "owner")
-  createdTokens: [Token!]! @derivedFrom(field: "creator")
-  balances: [Balance!]! @derivedFrom(field: "account")
-  bought: [Sale!]! @derivedFrom(field: "buyer")
-  sold: [Sale!]! @derivedFrom(field: "seller")
-  sent: [Transfer!]! @derivedFrom(field: "from")
-  received: [Transfer!]! @derivedFrom(field: "to")
-  ownedNOIZDTokens: [NOIZDToken!]! @derivedFrom(field: "owner")
-  ownedZoraMedias: [ZoraMedia!]! @derivedFrom(field: "owner")
+  ownedNFTs: [NFT!]! @derivedFrom(field: "owner")
+}
+
+# This represents an artist profile on a specific platform
+type ArtistProfile @entity {
+  id: ID!
+  platform: MusicPlatform!
+  creator: Account!
+  tracks: [Track!]! @derivedFrom(field: "artistProfile")
+}
+
+# This represents track that has been minted on a single platform
+type Track @entity {
+  id: ID!
+  artistProfile: ArtistProfile
+}
+
+# This is a list of possible platforms
+enum MusicPlatform {
+  sound
+  zora
+  noizd
+  other
 }

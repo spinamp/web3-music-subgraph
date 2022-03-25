@@ -1,0 +1,8 @@
+# This represents a single NFT owned by a single owner account. It is not specific to any standard.
+type NFT @entity {
+  id: ID!
+  owner: Account!
+  track: Track!
+  createdAtTimestamp: BigInt!
+  createdAtBlockNumber: BigInt!
+}

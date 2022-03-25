@@ -1,22 +1,7 @@
-type SoundArtist @entity {
+# Sound has the concept of an edition. Usually a single release/single track.
+type SoundEdition @entity {
   id: ID!
-  uri: String!
-  artistId: BigInt!
-  name: String!
-  symbol: String!
-  totalSupply: BigInt!
-  owner: Account!
-  creator: Account!
-  editions: [Edition!]! @derivedFrom(field: "artist")
-  tokens: [Token!]! @derivedFrom(field: "artist")
-  sales: [Sale!]! @derivedFrom(field: "artist")
-  transfers: [Transfer!]! @derivedFrom(field: "artist")
-}
-
-type Edition @entity {
-  id: ID!
-  uri: String!
-  artist: SoundArtist!
+  artistProfile: ArtistProfile!
   editionId: BigInt!
   fundingRecipient: Bytes!
   price: BigInt!
@@ -25,65 +10,13 @@ type Edition @entity {
   royaltyBPS: BigInt!
   startTime: BigInt!
   endTime: BigInt!
-  tokens: [Token!]! @derivedFrom(field: "edition")
-  sales: [Sale!]! @derivedFrom(field: "edition")
-  transfers: [Transfer!]! @derivedFrom(field: "edition")
+  tokens: [SoundToken!]! @derivedFrom(field: "edition")
 }
 
-type Token @entity {
+# This is a single ERC721 token that has been minted on sound.
+type SoundToken @entity {
   id: ID!
-  uri: String!
-  artist: SoundArtist!
-  edition: Edition!
-  tokenId: BigInt!
-  owner: Account!
-  creator: Account!
-  sales: [Sale!]! @derivedFrom(field: "token")
-  transfers: [Transfer!]! @derivedFrom(field: "token")
-}
-
-interface Event {
-  id: ID!
-  artist: SoundArtist!
-  edition: Edition!
-  token: Token!
-  blockNumber: BigInt!
-  blockHash: Bytes!
-  txHash: Bytes!
-  timestamp: BigInt!
-}
-
-type Sale implements Event @entity {
-  id: ID!
-  artist: SoundArtist!
-  edition: Edition!
-  token: Token!
-  blockNumber: BigInt!
-  blockHash: Bytes!
-  txHash: Bytes!
-  timestamp: BigInt!
-  currency: Bytes!
-  amount: BigInt!
-  seller: Account!
-  buyer: Account!
-}
-
-type Transfer implements Event @entity {
-  id: ID!
-  artist: SoundArtist!
-  edition: Edition!
-  token: Token!
-  blockNumber: BigInt!
-  blockHash: Bytes!
-  txHash: Bytes!
-  timestamp: BigInt!
-  from: Account!
-  to: Account!
-}
-
-type Balance @entity {
-  id: ID!
-  artist: SoundArtist!
-  account: Account!
-  amount: BigInt!
+  artistProfile: ArtistProfile!
+  edition: SoundEdition!
+  nft: NFT!
 }

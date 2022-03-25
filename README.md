@@ -8,8 +8,8 @@ There are a few goals
  - Extend the schema with custom tables for each platform that tracks platform-specific data within the same database, so that it is still available for querying.
 
 ## Priorities
- - This project is related to https://spinamp.xyz/, a music player app for web3 music primarily focused on fans, listeners and media. The priorities for this subgraph is in media, track and artist data to enable easier browsing and listening of artists.
- - NFT, Sales, Royalties, Splits, etc are important too and hopefully will get added in time, but the priority at the moment is listener-centric data
+ - Development resources on this project are also working on [Spinamp](https://spinamp.xyz/), a music player app for web3 music primarily focused on fans, listeners and media. The priorities for it are on ownership, media, track and artist data to enable frictionless, reliable browsing and listening of artists.
+ - Sales, Royalties, Splits, etc are important too and hopefully will get added in time and we'd love contributions from others for this data. Having said that, we haven't put too deep thought into the schema for this kind of data yet
 
 ### Ingestion process
 The subraph only ingests data from Events. It does not query Ethereum for additional on-chain data, for example, tokenURIs. This is because any on-chain queries are really bad for ingestion performance, as The Graph does not support parallel/bulk queries to on-chain state. A seperate post-processing phase will be run to augment the data into a bigger more powerful schema, with this other off-chain data that is needed, including data from IPFS and centralized APIs.

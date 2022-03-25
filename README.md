@@ -1,6 +1,6 @@
 # Web3 Music subgraph
 
-This is a subgraph that aggregates various web3 music platforms. The goal is to aggregate all web3 music into a single, highly normalized and queryable schema.
+This is a subgraph that aggregates various web3 music platforms. The goal is to aggregate all web3 music into a single, highly normalized and queryable schema. It's based off The Graph for now, though could branch out further if we get to integrating from non-EVM chains in future.
 
 ## Design Goals
 There are a few goals

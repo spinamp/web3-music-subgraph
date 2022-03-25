@@ -12,7 +12,7 @@ There are a few goals
  - Sales, Royalties, Splits, etc are important too and hopefully will get added in time and we'd love contributions from others for this data. Having said that, we haven't put too deep thought into the schema for this kind of data yet
 
 ### Ingestion process
-The subraph only ingests data from Events. It does not query Ethereum for additional on-chain data, for example, tokenURIs. This is because any on-chain queries are really bad for ingestion performance, as The Graph does not support parallel/bulk queries to on-chain state. A seperate post-processing phase will be run to augment the data into a bigger more powerful schema, with this other off-chain data that is needed, including data from IPFS and centralized APIs.
+The subraph only ingests data directly from Events. It does not query Ethereum for additional on-chain data, for example, tokenURIs. This is because any on-chain queries are really bad for ingestion performance, as The Graph does not support parallel/bulk queries to on-chain state. A seperate post-processing phase will be run to augment the data into a bigger more powerful schema, with this other off-chain data that is needed, including data from IPFS and centralized APIs.
 
 Note: It may be possible to explore using calls and calldata to ingest tokenURIs and other on-chain data without requiring on-chain queries, though this hasn't been tried yet.
 

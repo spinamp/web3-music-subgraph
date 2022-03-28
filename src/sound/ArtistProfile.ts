@@ -1,4 +1,4 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts'
+import { Address, BigInt, log } from '@graphprotocol/graph-ts'
 
 import {
   ArtistProfile,
@@ -29,6 +29,13 @@ export function handleEditionCreated(event: EditionCreatedEvent): void {
 
   const track = createSoundTrack(event.address, event.params.editionId);
   track.save();
+  log.debug("{}", [`
+    "event": "trackCreated",
+    "platform": "sound",
+    "address": ${event.address.toHexString()},
+    "id": ${event.params.editionId},
+    "
+  `]);
 };
 
 export function handleEditionPurchased(event: EditionPurchasedEvent): void {
@@ -79,6 +86,7 @@ function loadOrCreateEdition(artist: Address, editionId: BigInt): Edition {
 function createSoundTrack(artist: Address, editionId: BigInt): Track {
   const id = buildSoundTrackId(artist, editionId)
   const track  = new Track(id)
+  track.artistProfile = buildArtistProfileId(artist)
   return track
 }
 

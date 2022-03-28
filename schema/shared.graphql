@@ -15,7 +15,10 @@ type ArtistProfile @entity {
 # This represents track that has been minted on a single platform
 type Track @entity {
   id: ID!
+  platform: MusicPlatform!
   artistProfile: ArtistProfile
+  createdAtBlockNumber: BigInt!
+  nfts: [NFT!]! @derivedFrom(field: "track")
 }
 
 # This is a list of possible platforms

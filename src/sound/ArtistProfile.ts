@@ -27,7 +27,7 @@ export function handleEditionCreated(event: EditionCreatedEvent): void {
   edition.numSold = BigInt.zero()
   edition.save()
 
-  const track = createSoundTrack(event.address, event.params.editionId);
+  const track = createSoundTrack(event.address, event.params.editionId, event.block.number);
   track.save();
   log.debug("{}", [`
     "event": "trackCreated",
@@ -83,10 +83,12 @@ function loadOrCreateEdition(artist: Address, editionId: BigInt): Edition {
   return edition
 }
 
-function createSoundTrack(artist: Address, editionId: BigInt): Track {
+function createSoundTrack(artist: Address, editionId: BigInt, blockNumber: BigInt): Track {
   const id = buildSoundTrackId(artist, editionId)
   const track  = new Track(id)
   track.artistProfile = buildArtistProfileId(artist)
+  track.platform = 'sound';
+  track.createdAtBlockNumber = blockNumber;
   return track
 }
 

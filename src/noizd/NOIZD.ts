@@ -14,9 +14,11 @@ function buildNOIZDTrackId(contractAddress:Address, tokenId: BigInt): string {
   return `${formatAddress(contractAddress.toHexString())}/${tokenId.toString()}`;
 }
 
-function createNOIZDTrack(artist: Address, tokenId: BigInt): Track {
+function createNOIZDTrack(artist: Address, tokenId: BigInt, blockNumber: BigInt): Track {
   const id = buildNOIZDTrackId(artist, tokenId)
   const track  = new Track(id)
+  track.platform = 'noizd';
+  track.createdAtBlockNumber = blockNumber;
   return track
 }
 
@@ -28,7 +30,7 @@ export function handleMint(event: Transfer): void {
   const to = loadOrCreateAccount(event.params.to)
   to.save()
 
-  const track = createNOIZDTrack(event.address, event.params.tokenId);
+  const track = createNOIZDTrack(event.address, event.params.tokenId, event.block.number);
   track.save();
 
   upsertERC721(

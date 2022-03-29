@@ -12,7 +12,7 @@ import {
 } from '../../generated/templates/SoundArtist/Artist'
 
 import { loadOrCreateAccount } from '../shared/account';
-import {buildERC721Id, upsertERC721} from '../shared/nft'
+import { buildERC721Id, upsertERC721 } from '../shared/nft'
 
 export function handleEditionCreated(event: EditionCreatedEvent): void {
   const edition = loadOrCreateEdition(event.address, event.params.editionId)
@@ -26,6 +26,14 @@ export function handleEditionCreated(event: EditionCreatedEvent): void {
   edition.endTime = event.params.endTime
   edition.numSold = BigInt.zero()
   edition.save()
+};
+
+export function handleEditionPurchased(event: EditionPurchasedEvent): void {
+  const buyer = loadOrCreateAccount(event.params.buyer)
+  buyer.save()
+
+  const creator = loadOrCreateAccount(event.transaction.from)
+  creator.save()
 
   const track = createSoundTrack(event.address, event.params.editionId, event.block.number);
   track.save();
@@ -36,21 +44,11 @@ export function handleEditionCreated(event: EditionCreatedEvent): void {
     "id": ${event.params.editionId},
     "
   `]);
-};
-
-export function handleEditionPurchased(event: EditionPurchasedEvent): void {
-  const buyer = loadOrCreateAccount(event.params.buyer)
-  buyer.save()
-
-  const creator = loadOrCreateAccount(event.transaction.from)
-  creator.save()
-
-  const trackId = buildSoundTrackId(event.address, event.params.editionId)
 
   upsertERC721(
     event.address,
     event.params.tokenId,
-    trackId,
+    track.id,
     buyer.id,
     event.block.timestamp,
     event.block.number
@@ -85,7 +83,7 @@ function loadOrCreateEdition(artist: Address, editionId: BigInt): Edition {
 
 function createSoundTrack(artist: Address, editionId: BigInt, blockNumber: BigInt): Track {
   const id = buildSoundTrackId(artist, editionId)
-  const track  = new Track(id)
+  const track = new Track(id)
   track.artistProfile = buildArtistProfileId(artist)
   track.platform = 'sound';
   track.createdAtBlockNumber = blockNumber;

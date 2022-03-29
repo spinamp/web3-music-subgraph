@@ -49,6 +49,7 @@ export function handleEditionPurchased(event: EditionPurchasedEvent): void {
     event.address,
     event.params.tokenId,
     track.id,
+    'sound',
     buyer.id,
     event.block.timestamp,
     event.block.number

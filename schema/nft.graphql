@@ -1,6 +1,9 @@
 # This represents a single NFT owned by a single owner account. It is not specific to any standard.
 type NFT @entity {
   id: ID!
+  contractAddress: String!
+  tokenId: BigInt!
+  platform: MusicPlatform!
   owner: Account!
   track: Track!
   createdAtTimestamp: BigInt!

@@ -1,6 +1,6 @@
 {
   "name": "sound-subgraph",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "schemagen": "mkdir -p generated && cat ./schema/*.graphql > ./generated/schema.graphql",
     "codegen": "yarn schemagen && graph codegen",

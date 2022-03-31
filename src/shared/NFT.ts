@@ -17,9 +17,12 @@ export function buildERC721Id(contractAddress: Address, tokenId: BigInt): string
 }
 
 export function upsertERC721(
-    contractAddress:Address, tokenId:BigInt, trackId:string | null = null,
-    owner:string | null = null, createdAtTimestamp:BigInt| null = null, createdAtBlockNumber:BigInt| null = null
-  ): NFT {
+  contractAddress: Address,
+  tokenId: BigInt,
+  trackId: string | null = null,
+  platform: string | null = null,
+  owner: string | null = null, createdAtTimestamp: BigInt | null = null, createdAtBlockNumber: BigInt | null = null
+): NFT {
   const id = buildERC721Id(contractAddress, tokenId);
   let nft = NFT.load(id);
 
@@ -27,9 +30,12 @@ export function upsertERC721(
     nft = new NFT(id);
   }
 
-  if (trackId !== null){
+  if (trackId !== null) {
     nft.track = trackId;
   };
+  nft.contractAddress = formatAddress(contractAddress.toHexString());
+  nft.tokenId = tokenId;
+  platform && (nft.platform = platform);
   owner && (nft.owner = owner);
   createdAtTimestamp && (nft.createdAtTimestamp = createdAtTimestamp);
   createdAtBlockNumber && (nft.createdAtBlockNumber = createdAtBlockNumber);
@@ -39,7 +45,7 @@ export function upsertERC721(
 
 export function handleERC721Transfer(event: Transfer): void {
   const fromAddress = formatAddress(event.params.from.toHexString());
-  if(fromAddress == ZERO_ADDDRESS) {
+  if (fromAddress == ZERO_ADDDRESS) {
     return;
   }
 
@@ -52,6 +58,7 @@ export function handleERC721Transfer(event: Transfer): void {
   upsertERC721(
     event.address,
     event.params.tokenId,
+    null,
     null,
     to.id,
     null,

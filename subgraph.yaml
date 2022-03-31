@@ -151,6 +151,8 @@ templates:
       eventHandlers:
         - event: EditionCreated(indexed uint256,address,uint256,uint32,uint32,uint32,uint32)
           handler: handleEditionCreated
+        - event: EditionCreated(indexed uint256,address,uint256,uint32,uint32,uint32,uint32,uint32,address)
+          handler: handleEditionCreated
         - event: EditionPurchased(indexed uint256,indexed uint256,uint32,indexed address)
           handler: handleEditionPurchased
       file: ./src/sound/ArtistProfile.ts

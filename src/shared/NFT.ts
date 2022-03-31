@@ -1,25 +1,26 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts'
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 
-import {
-  loadOrCreateAccount, formatAddress, ZERO_ADDDRESS
-} from './account';
+import { loadOrCreateAccount, formatAddress, ZERO_ADDDRESS } from "./account";
 
-import {
-  NFT,
-} from '../../generated/schema'
+import { NFT } from "../../generated/schema";
 
-import {
-  Transfer
-} from '../../generated/templates/ERC721/ERC721';
+import { Transfer } from "../../generated/templates/ERC721/ERC721";
 
-export function buildERC721Id(contractAddress: Address, tokenId: BigInt): string {
+export function buildERC721Id(
+  contractAddress: Address,
+  tokenId: BigInt
+): string {
   return `${contractAddress.toHexString().toLowerCase()}/${tokenId.toString()}`;
 }
 
 export function upsertERC721(
-    contractAddress:Address, tokenId:BigInt, trackId:string | null = null,
-    owner:string | null = null, createdAtTimestamp:BigInt| null = null, createdAtBlockNumber:BigInt| null = null
-  ): NFT {
+  contractAddress: Address,
+  tokenId: BigInt,
+  trackId: string | null = null,
+  owner: string | null = null,
+  createdAtTimestamp: BigInt | null = null,
+  createdAtBlockNumber: BigInt | null = null
+): NFT {
   const id = buildERC721Id(contractAddress, tokenId);
   let nft = NFT.load(id);
 
@@ -27,9 +28,9 @@ export function upsertERC721(
     nft = new NFT(id);
   }
 
-  if (trackId !== null){
+  if (trackId !== null) {
     nft.track = trackId;
-  };
+  }
   owner && (nft.owner = owner);
   createdAtTimestamp && (nft.createdAtTimestamp = createdAtTimestamp);
   createdAtBlockNumber && (nft.createdAtBlockNumber = createdAtBlockNumber);
@@ -39,22 +40,15 @@ export function upsertERC721(
 
 export function handleERC721Transfer(event: Transfer): void {
   const fromAddress = formatAddress(event.params.from.toHexString());
-  if(fromAddress == ZERO_ADDDRESS) {
+  if (fromAddress == ZERO_ADDDRESS) {
     return;
   }
 
-  const from = loadOrCreateAccount(event.params.from)
-  from.save()
+  const from = loadOrCreateAccount(event.params.from);
+  from.save();
 
-  const to = loadOrCreateAccount(event.params.to)
-  to.save()
+  const to = loadOrCreateAccount(event.params.to);
+  to.save();
 
-  upsertERC721(
-    event.address,
-    event.params.tokenId,
-    null,
-    to.id,
-    null,
-    null
-  );
+  upsertERC721(event.address, event.params.tokenId, null, to.id, null, null);
 }

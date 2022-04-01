@@ -2,6 +2,23 @@
 
 This is a subgraph that aggregates various web3 music platforms. The goal is to aggregate all web3 music into a single, highly normalized and queryable schema. It's based off The Graph for now, though could branch out further if we get to integrating from non-EVM chains in future.
 
+## Installation
+
+### Deploying it locally with self-hosted node
+
+**Prerequisites:**
+
+- Install, sync and run an Ethereum full node (e.g. Erigon)
+- Install and run a [graph-node](https://github.com/graphprotocol/graph-node#quick-start)
+
+```bash
+git clone https://github.com/spinamp/web3-music-subgraph.git
+yarn
+yarn build
+yarn create-local
+yarn deploy-local
+```
+
 ## Design Goals
 There are a few goals
  - Develop a schema that covers the minimal subset of web3 music/nft metadata that is possible to get just from on-chain data, with which the indexer can map data from different nuanced contracts into.

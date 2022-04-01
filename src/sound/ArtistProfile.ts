@@ -9,10 +9,10 @@ import {
 import {
   EditionCreated as EditionCreatedEvent,
   EditionPurchased as EditionPurchasedEvent,
-} from '../../generated/templates/SoundArtist/Artist'
+} from '../../generated/templates/SoundArtistProfile/SoundArtistProfile'
 
 import { loadOrCreateAccount } from '../shared/account';
-import { buildERC721Id, upsertERC721 } from '../shared/nft'
+import { buildERC721Id, upsertERC721 } from '../shared/NFT'
 
 export function handleEditionCreated(event: EditionCreatedEvent): void {
   const edition = loadOrCreateEdition(event.address, event.params.editionId)

@@ -1,5 +1,5 @@
 import { SoundArtistProfile, ERC721 } from '../../generated/templates';
-import { CreatedArtist } from '../../generated/SoundArtistCreator/ArtistCreator';
+import { CreatedArtist } from '../../generated/SoundArtistProfileCreator/ArtistProfileCreator';
 
 import { loadOrCreateAccount } from '../shared/account';
 import { loadOrCreateSoundArtistProfile } from './ArtistProfile';

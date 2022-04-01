@@ -3,7 +3,7 @@ import { Address, BigInt } from '@graphprotocol/graph-ts';
 import {
   Transfer
 } from '../../generated/templates/ERC721/ERC721';
-import { upsertERC721 } from '../shared/nft'
+import { upsertERC721 } from '../shared/NFT'
 
 import {
   loadOrCreateAccount, ZERO_ADDDRESS, formatAddress

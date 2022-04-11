@@ -39,7 +39,7 @@ export function handleMint(event: Transfer): void {
     track.id,
     'zora',
     to.id,
-    event.block.timestamp,
+    event.block.timestamp.times(BigInt.fromU64(1000)),
     event.block.number
   );
 }

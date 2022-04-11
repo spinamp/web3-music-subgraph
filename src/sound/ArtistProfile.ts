@@ -51,7 +51,7 @@ export function handleEditionPurchased(event: EditionPurchasedEvent): void {
     track.id,
     'sound',
     buyer.id,
-    event.block.timestamp,
+    event.block.timestamp.times(BigInt.fromU64(1000)),
     event.block.number
   );
 

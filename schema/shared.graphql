@@ -26,5 +26,6 @@ enum MusicPlatform {
   sound
   zora
   noizd
+  catalog
   other
 }

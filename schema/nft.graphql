@@ -3,7 +3,7 @@ type NFT @entity {
   id: ID!
   contractAddress: String!
   tokenId: BigInt!
-  platform: MusicPlatform!
+  platform: String!
   owner: Account!
   track: Track!
   createdAtTimestamp: BigInt!

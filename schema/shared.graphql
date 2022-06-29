@@ -7,7 +7,7 @@ type Account @entity {
 # This represents an artist profile on a specific platform
 type ArtistProfile @entity {
   id: ID!
-  platform: MusicPlatform!
+  platform: String!
   creator: Account!
   tracks: [Track!]! @derivedFrom(field: "artistProfile")
 }
@@ -15,17 +15,8 @@ type ArtistProfile @entity {
 # This represents track that has been minted on a single platform
 type Track @entity {
   id: ID!
-  platform: MusicPlatform!
+  platform: String!
   artistProfile: ArtistProfile
   createdAtBlockNumber: BigInt!
   nfts: [NFT!]! @derivedFrom(field: "track")
-}
-
-# This is a list of possible platforms
-enum MusicPlatform {
-  sound
-  zora
-  noizd
-  catalog
-  other
 }
